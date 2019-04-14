@@ -56,7 +56,7 @@ def main():
                 comment['user']['username'],
             ))
 
-    print(fulfilled_condidions_users = set(fulfilled_condidions_users))
+    fulfilled_condidions_users = set(fulfilled_condidions_users)
 
 
 if __name__ == "__main__":
