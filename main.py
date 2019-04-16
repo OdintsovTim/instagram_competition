@@ -5,7 +5,7 @@ from instabot import Bot
 
 
 def find_references(text):
-    mask = '(?:^|[^\w])(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)'
+    mask = '(?:^|[^\w])(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)' # https://stackoverflow.com/questions/32543090/instagram-username-regex-php
     usernames = re.findall(mask, text)
 
     return usernames
