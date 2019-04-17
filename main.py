@@ -12,6 +12,7 @@ def find_references(text):
 
 def is_user_exist(bot, username):
     user_id = bot.get_user_id_from_username(username)
+    
     if user_id:
         return True
     else:
@@ -56,7 +57,7 @@ def main():
                 comment['user']['username'],
             ))
 
-    print(fulfilled_condidions_users = set(fulfilled_condidions_users))
+    print(set(fulfilled_condidions_users))
 
 
 if __name__ == "__main__":
