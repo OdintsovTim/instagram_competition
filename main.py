@@ -10,28 +10,23 @@ def find_references(text):
 
     return usernames
 
+
 def is_user_exist(bot, username):
     user_id = bot.get_user_id_from_username(username)
     
     return user_id is not None
 
 
-def main():
-    fulfilled_condidions_users = []
-
+def create_parser():
     parser = argparse.ArgumentParser(description='This program helps you choose the winner of the contest in Instagram')
     parser.add_argument('login')
     parser.add_argument('password')
     parser.add_argument('public_username')
     parser.add_argument('post_url')
-    args = parser.parse_args()
-    login = args.login
-    password = args.password
-    public_username = args.public_username
-    post_url = args.post_url
-    
-    bot = Bot()
-    bot.login(username=login, password=password)
+    return parser
+
+
+def collect_participants(bot, post_url, public_username):
     post_id = bot.get_media_id_from_link(post_url)
     all_post_likers = bot.get_media_likers(post_id)
     all_public_followers = bot.get_user_followers(public_username)
@@ -53,8 +48,25 @@ def main():
                 comment['user']['pk'],
                 comment['user']['username'],
             ))
+    
+    return fulfilled_condidions_users
 
-    print(set(fulfilled_condidions_users))
+
+def main():
+    fulfilled_condidions_users = []
+
+    parser = create_parser()
+    args = parser.parse_args()
+    login = args.login
+    password = args.password
+    public_username = args.public_username
+    post_url = args.post_url
+    
+    bot = Bot()
+    bot.login(username=login, password=password)
+    
+
+    fulfilled_condidions_users = collect_participants(bot, post_url, public_username)
 
 
 if __name__ == "__main__":
