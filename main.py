@@ -13,10 +13,7 @@ def find_references(text):
 def is_user_exist(bot, username):
     user_id = bot.get_user_id_from_username(username)
     
-    if user_id:
-        return True
-    else:
-        return False
+    return user_id is not None
 
 
 def main():
@@ -42,16 +39,16 @@ def main():
 
     for comment in all_comments:
         usernames = find_references(comment['text'])
-        available = False
+        participant = False
         for username in usernames:
             if is_user_exist(bot, username):
-                available = True
+                participant = True
         if not str(comment['user']['pk']) in all_post_likers:
-            available = False
+            participant = False
         if not str(comment['user']['pk']) in all_public_followers:
-            available = False
+            participant = False
 
-        if available:
+        if participant:
             fulfilled_condidions_users.append((
                 comment['user']['pk'],
                 comment['user']['username'],
